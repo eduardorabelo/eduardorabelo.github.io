@@ -1,36 +1,36 @@
-<!DOCTYPE html>
-<!--
-	Forty by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
+---
+layout: blog
+---
 
-{% include head.html %}
-
-<body>
-
-    {% include header.html %} 
-    
-    
-<!-- Main -->
-<div id="main" class="alt">
-
-<!-- One -->
-<section id="one">
-	<div class="inner">
-		<header class="major">
-			<h1>{{ page.title }}</h1>
-		</header>
-		{% if page.image %}<span class="image main"><img src="{{ site.baseurl }}/{{ page.image }}" alt="" /></span>{% endif %}
-		<p>{{ content }}</p>
-	</div>
-</section>
-
+<div class="post">
+  <h1 class="post-title">{{ page.title }}</h1>
+  <h2 class="post-subtitle">{{ page.subtitle }}</h2>
+  <span class="post-date">
+  {{ page.date | date: "%d/%m/%Y" }}
+  
+  {% assign words = content | number_of_words %}
+  {% if words < 360 %}
+    - 1 minuto de leitura
+  {% else %}
+    - {{ words | divided_by:180 }} minutos de leitura
+  {% endif %}
+  </span>
+  
+  {{ content }}
 </div>
 
-    {% include footer.html %}
-
-</body>
-
-</html>
+<div class="related">
+  <h2>Últimos posts</h2>
+  <ul class="related-posts">
+    {% for post in site.related_posts limit:5 %}
+      <li>
+        <h3>
+          <a href="{{ site.url | prepend: site.baseurl }}{{ post.url }}">
+            {{ post.title }}
+            <small>{{ post.date | date: "%d/%m/%Y" }}</small>
+          </a>
+        </h3>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
